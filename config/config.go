@@ -3,6 +3,8 @@ package config
 import (
 	"fmt"
 	"hash/fnv"
+
+	"github.com/BurntSushi/toml"
 )
 
 // Shard describes a shard that holds the appropriate set of keys.
@@ -16,6 +18,15 @@ type Shard struct {
 // Config describes the sharding config.
 type Config struct {
 	Shards []Shard
+}
+
+// ParseFile parses the config and returns it upon success.
+func ParseFile(filename string) (Config, error) {
+	var c Config
+	if _, err := toml.DecodeFile(filename, &c); err != nil {
+		return Config{}, err
+	}
+	return c, nil
 }
 
 // Shards represents an easier-to-use representation of

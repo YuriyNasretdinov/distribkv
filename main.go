@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/BurntSushi/toml"
 	"github.com/YuriyNasretdinov/distribkv/config"
 	"github.com/YuriyNasretdinov/distribkv/db"
 	"github.com/YuriyNasretdinov/distribkv/web"
@@ -33,8 +32,8 @@ func parseFlags() {
 func main() {
 	parseFlags()
 
-	var c config.Config
-	if _, err := toml.DecodeFile(*configFile, &c); err != nil {
+	c, err := config.ParseFile(*configFile)
+	if err != nil {
 		log.Fatalf("Error parsing config %q: %v", *configFile, err)
 	}
 
