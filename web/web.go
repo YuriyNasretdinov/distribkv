@@ -44,12 +44,13 @@ func (s *Server) GetHandler(w http.ResponseWriter, r *http.Request) {
 	key := r.Form.Get("key")
 
 	shard := s.shards.Index(key)
-	value, err := s.db.GetKey(key)
 
 	if shard != s.shards.CurIdx {
 		s.redirect(shard, w, r)
 		return
 	}
+
+	value, err := s.db.GetKey(key)
 
 	fmt.Fprintf(w, "Shard = %d, current shard = %d, addr = %q, Value = %q, error = %v", shard, s.shards.CurIdx, s.shards.Addrs[shard], value, err)
 }
