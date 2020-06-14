@@ -1,19 +1,19 @@
 [[shards]]
 name = "Moscow"
 idx = 0
-address = "localhost:8080"
+address = "127.0.0.2:8080"
 
-[[shards]]
-name = "Minsk"
-idx = 1
-address = "localhost:8081"
+# [[shards]]
+# name = "Minsk"
+# idx = 1
+# address = "127.0.0.3:8080"
 
-[[shards]]
-name = "Kiev"
-idx = 2
-address = "localhost:8082"
+# [[shards]]
+# name = "Kiev"
+# idx = 2
+# address = "127.0.0.4:8080"
 
-[[shards]]
-name = "Tashkent"
-idx = 3
-address = "localhost:8083"
+# [[shards]]
+# name = "Tashkent"
+# idx = 3
+# address = "127.0.0.5:8080"
