@@ -7,6 +7,7 @@ import (
 
 	"github.com/YuriyNasretdinov/distribkv/config"
 	"github.com/YuriyNasretdinov/distribkv/db"
+	"github.com/YuriyNasretdinov/distribkv/replication"
 	"github.com/YuriyNasretdinov/distribkv/web"
 )
 
@@ -50,6 +51,14 @@ func main() {
 		log.Fatalf("Error creating %q: %v", *dbLocation, err)
 	}
 	defer close()
+
+	if *replica {
+		leaderAddr, ok := shards.Addrs[shards.CurIdx]
+		if !ok {
+			log.Fatalf("Could not find address for leader for shard %d", shards.CurIdx)
+		}
+		go replication.ClientLoop(db, leaderAddr)
+	}
 
 	srv := web.NewServer(db, shards)
 
